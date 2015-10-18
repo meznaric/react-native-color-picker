@@ -1,0 +1,24 @@
+{
+  "name": "react-native-color-picker",
+  "version": "0.0.1",
+  "description": "React native colorpicker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "react-native": "^0.11.4"
+  },
+  "keywords": [
+    "react",
+    "native",
+    "color",
+    "picker",
+    "colour"
+  ],
+  "author": "Vito Meznaric <vmeznaric@outlook.com> (http://meznaric.net)",
+  "license": "ISC",
+  "dependencies": {
+    "color-namer": "^1.0.0"
+  }
+}
