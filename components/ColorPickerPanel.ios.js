@@ -72,8 +72,9 @@ let ColorPickerPanel = React.createClass({
         )
     },
 
-    onColorBoxPress: function() {
-            this.hide();
+    onColorBoxPress: function(color) {
+        this.hide();
+        this.props.onChange && this.props.onChange(color);
     },
 
     hide: function() {

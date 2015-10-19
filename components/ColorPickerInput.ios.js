@@ -34,24 +34,57 @@ let ColorPickerInput = React.createClass({
         };
     },
 
+    componentWillReceiveProps: function(nextProps) {
+        if(nextProps.initialColor !== this.props.initialColor) {
+            this.setState({color: nextProps.initialColor});
+        }
+    },
+
     render: function() {
         let {style, panelStyle, width, height} = this.props;
         let {color} = this.state;
         let colorName = namer(color).ntc[0].name;
 
+        var rgbRegex = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/
+        let res = color.match(rgbRegex);
+        let c = {
+            r: parseFloat(res[1]),
+            g: parseFloat(res[2]),
+            b: parseFloat(res[3]),
+            a: parseFloat(res[4])
+        }
+        let displayColor = color;
+        let val = (c.r+c.g+c.b)/3;
+        if(val > 200) {
+            displayColor = 'rgba('+
+                (255-c.r/4) +
+                ', ' +
+                (255-c.g/4) +
+                ', ' + 
+                (255-c.b/4) +
+                ', 1)';
+        }
+
         let colorPanelStyle = {
-            top: 48,
-            left: -1 
+            top: height-4,
+            left: -1,
+            borderColor: displayColor
         };
 
         return (
             <TouchableOpacity onPress={this.onOpenPanel}>
-                <View style={[styles.view, {width, height, borderColor: color}, style]}>
-                    <ColorPickerPanel width={width} color={color} ref="colorPickerPanel" style={[styles.panel, colorPanelStyle, panelStyle]} />
-                    <View style={[styles.color, {backgroundColor: color}]}>
+                <View style={[styles.view, {width, height, borderColor: displayColor}, style]}>
+                    <View style={[styles.color, {backgroundColor: displayColor}]}>
                         <Text style={styles.ripple}>◦</Text>
                     </View>
-                    <Text style={[styles.label, {color: color}]}>{colorName}</Text>
+                    <Text style={[styles.label, {color: displayColor}]}>{colorName}</Text>
+                    <ColorPickerPanel
+                        width={width}
+                        color={color}
+                        ref="colorPickerPanel"
+                        style={[styles.panel, colorPanelStyle, panelStyle]}
+                        onChange={this.onColorChange}
+                    />
                 </View>
             </TouchableOpacity>
         );

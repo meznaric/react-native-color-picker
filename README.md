@@ -2,4 +2,4 @@
 
 Simple composable React native color picker.
 
-This is work in progress.
+This is work in progress and not really usable yet :)

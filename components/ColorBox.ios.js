@@ -18,9 +18,9 @@ let ColorBox = React.createClass({
     },
 
     render: function() {
-        let {style, color, onPress} = this.props;
+        let {style, color} = this.props;
         return (
-            <TouchableOpacity onPress={onPress} style={[styles.container, {backgroundColor: color}, style]}>
+            <TouchableOpacity onPress={this.onPress} style={[styles.container, {backgroundColor: color}, style]}>
             </TouchableOpacity>
         );
     },
