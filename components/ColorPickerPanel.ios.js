@@ -11,7 +11,6 @@ let {
 } = React;
 
 let WIDTH = 160;
-let HEIGHT = 220;
 let ColorPickerPanel = React.createClass({
 
     propTypes: {
@@ -19,20 +18,18 @@ let ColorPickerPanel = React.createClass({
         onChange: React.PropTypes.func,
         initiallyOpen: React.PropTypes.bool,
         color: React.PropTypes.string,
-        width: React.PropTypes.number,
-        height: React.PropTypes.number
+        width: React.PropTypes.number
     },
 
     getDefaultProps: function() {
         return {
             initiallyOpen: false,
-            width: WIDTH,
-            height: HEIGHT
+            width: WIDTH
         };
     },
 
     componentWillMount: function() {
-        let {initiallyOpen, height} = this.props;
+        let {initiallyOpen} = this.props;
         this.isOpen = initiallyOpen;
 
         //Open/close animation interpolation settings
@@ -47,16 +44,16 @@ let ColorPickerPanel = React.createClass({
             },{
                 translateY: this.openCloseVal.interpolate({
                     inputRange: [0, 1],
-                    outputRange: [-height/3, 0]
+                    outputRange: [-30, 0]
                 }) 
             }]       
         }
     },
 
     render: function() {
-        let {style, color, width, height} = this.props;
+        let {style, color, width} = this.props;
         return (
-            <Animated.View style={[styles.container, {width, height, borderColor: color}, style, this.viewStyles]}>
+            <Animated.View style={[styles.container, {width, borderColor: color}, style, this.viewStyles]}>
                 <ColorBox onPress={this.onColorBoxPress} color="rgba(192, 57, 43,1.0)"/>
                 <ColorBox onPress={this.onColorBoxPress} color="rgba(211, 84, 0,1.0)"/>
                 <ColorBox onPress={this.onColorBoxPress} color="rgba(243, 156, 18,1.0)"/>
