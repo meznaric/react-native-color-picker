@@ -91,11 +91,7 @@ let ColorPickerInput = React.createClass({
     },
 
     onOpenPanel: function() {
-        if(this.refs.colorPickerPanel.isOpen) {
-            this.refs.colorPickerPanel.hide();
-        } else {
-            this.refs.colorPickerPanel.show();
-        }
+        this.refs.colorPickerPanel.toggleVisibility();
     },
 
     onColorChange: function(color) {
