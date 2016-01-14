@@ -14,7 +14,7 @@ let {
 let ColorPickerInput = React.createClass({
     propTypes: {
         style: React.PropTypes.object,
-        initialColor: React.PropTypes.string,
+        color: React.PropTypes.string,
         panelStyle: React.PropTypes.object,
         width: React.PropTypes.number,
         height: React.PropTypes.number
@@ -22,27 +22,18 @@ let ColorPickerInput = React.createClass({
 
     getDefaultProps: function() {
         return {
-            initialColor: 'rgba(200, 130, 56, 1)',
+            color: 'rgba(200, 130, 56, 1)',
             width: 160,
             height: 50
         };
     },
 
-    getInitialState: function() {
-        return {
-            color: this.props.initialColor
-        };
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-        if(nextProps.initialColor !== this.props.initialColor) {
-            this.setState({color: nextProps.initialColor});
-        }
+    shouldComponentUpdate: function(nextProps) {
+        return nextProps.color !== this.props.color;
     },
 
     render: function() {
-        let {style, panelStyle, width, height} = this.props;
-        let {color} = this.state;
+        let {style, panelStyle, width, height, color} = this.props;
         let colorName = namer(color).ntc[0].name;
 
         var rgbRegex = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/
@@ -95,7 +86,6 @@ let ColorPickerInput = React.createClass({
     },
 
     onColorChange: function(color) {
-        this.setState({color});
         this.props.onChange && this.props.onChange(color);
     }
 });

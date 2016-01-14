@@ -16,29 +16,25 @@ let ColorPickerPanel = React.createClass({
     propTypes: {
         style: React.PropTypes.any,
         onChange: React.PropTypes.func,
-        initiallyOpen: React.PropTypes.bool,
         color: React.PropTypes.string,
         width: React.PropTypes.number
     },
 
     getDefaultProps: function() {
         return {
-            initiallyOpen: false,
             width: WIDTH
         };
     },
 
     getInitialState: function() {
         return {
-            visible: this.props.initiallyOpen 
+            visible: false
         };
     },
 
     componentWillMount: function() {
-        let {initiallyOpen} = this.props;
-
         //Open/close animation interpolation settings
-        this.openCloseVal = new Animated.Value(initiallyOpen ? 1 : 0);
+        this.openCloseVal = new Animated.Value(this.state.visible ? 1 : 0);
         this.viewStyles = {
             opacity: this.openCloseVal,
             transform: [{
@@ -57,6 +53,7 @@ let ColorPickerPanel = React.createClass({
 
     render: function() {
         let {style, color, width} = this.props;
+        if (!this.state.visible) return false;
         return (
             <Animated.View style={[styles.container, {width, borderColor: color}, style, this.viewStyles]} pointerEvents={this.state.visible ? 'auto' : 'none'}>
                 <ColorBox onPress={this.onColorBoxPress} color="rgba(192, 57, 43,1.0)"/>
@@ -80,10 +77,14 @@ let ColorPickerPanel = React.createClass({
     },
 
     hide: function() {
-        this.setState({visible: false});
         Animated.spring(this.openCloseVal, {
             toValue: 0
-        }).start();
+        }).start(({finished}) => {
+            console.log(finished);
+            if(finished) {
+                this.setState({visible: false});
+            }
+        });
     },
 
     show: function() {
