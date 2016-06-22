@@ -1,10 +1,10 @@
 'use strict';
 
-let React = require('react-native');
+let React = require('react');
 
 let {
     View
-} = React;
+} = require('react-native');
 
 let ColorPickerPopup = React.createClass({
     render: function() {

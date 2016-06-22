@@ -1,13 +1,13 @@
 
 'use strict';
 
-let React = require('react-native');
+let React = require('react');
 
 let {
     View,
     StyleSheet,
     TouchableOpacity
-} = React;
+} = require('react-native');
 
 let ColorBox = React.createClass({
 

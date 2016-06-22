@@ -1,6 +1,6 @@
 'use strict';
 
-let React = require('react-native'),
+let React = require('react'),
 namer = require('color-namer'),
     ColorPickerPanel = require('./ColorPickerPanel.ios');
 
@@ -9,7 +9,7 @@ let {
     Text,
     StyleSheet,
     TouchableOpacity
-} = React;
+} = require('react-native');
 
 let ColorPickerInput = React.createClass({
     propTypes: {

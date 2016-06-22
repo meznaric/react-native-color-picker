@@ -1,6 +1,6 @@
 'use strict';
 
-let React = require('react-native');
+let React = require('react');
 
 let ColorBox = require('./ColorBox.ios');
 
@@ -8,7 +8,7 @@ let {
     View,
     StyleSheet,
     Animated
-} = React;
+} = require('react-native');
 
 let WIDTH = 160;
 let ColorPickerPanel = React.createClass({
